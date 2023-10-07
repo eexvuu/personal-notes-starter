@@ -2,6 +2,7 @@ import { Component } from "react";
 import { getInitialData } from "../utils";
 import NoteInput from "./NoteInput";
 import NoteList from "./NoteList";
+import NoteSearch from "./NoteSearch";
 
 class NoteApp extends Component {
   constructor(props) {
@@ -13,8 +14,7 @@ class NoteApp extends Component {
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
     this.onArchiveHandler = this.onArchiveHandler.bind(this);
-    this.onSearchChangeEventHandler =
-      this.onSearchChangeEventHandler.bind(this);
+    this.onSearchChangeEventHandler = this.onSearchChangeEventHandler.bind(this);
   }
 
   onDeleteHandler(id) {
@@ -50,10 +50,8 @@ class NoteApp extends Component {
   }
 
   onSearchChangeEventHandler = (event) => {
-    this.setState(() => {
-      return {
-        search: event.target.value,
-      };
+    this.setState({
+      search: event.target.value,
     });
   };
 
@@ -66,14 +64,10 @@ class NoteApp extends Component {
       <>
         <div className="note-app__header">
           <h1>Notes</h1>
-          <div className="note-search">
-            <input
-              type="text"
-              placeholder="Search"
-              value={this.state.search}
-              onChange={this.onSearchChangeEventHandler}
-            />
-          </div>
+          <NoteSearch
+            search={this.state.search}
+            onSearchChange={this.onSearchChangeEventHandler}
+          />
         </div>
 
         <div className="note-app__body">
