@@ -8,7 +8,7 @@ class NoteApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: getInitialData(),
+      notes: [],
       search: "",
     };
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
@@ -16,6 +16,18 @@ class NoteApp extends Component {
     this.onArchiveHandler = this.onArchiveHandler.bind(this);
     this.onSearchChangeEventHandler =
       this.onSearchChangeEventHandler.bind(this);
+  }
+
+  componentDidMount() {
+    // Retrieve data from local storage when the component mounts
+    const storedNotes = localStorage.getItem("notes");
+    const notes = storedNotes ? JSON.parse(storedNotes) : getInitialData();
+    this.setState({ notes });
+  }
+
+  componentDidUpdate() {
+    // Update local storage whenever the state changes
+    localStorage.setItem("notes", JSON.stringify(this.state.notes));
   }
 
   onDeleteHandler(id) {
