@@ -14,7 +14,8 @@ class NoteApp extends Component {
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
     this.onArchiveHandler = this.onArchiveHandler.bind(this);
-    this.onSearchChangeEventHandler = this.onSearchChangeEventHandler.bind(this);
+    this.onSearchChangeEventHandler =
+      this.onSearchChangeEventHandler.bind(this);
   }
 
   onDeleteHandler(id) {
@@ -49,25 +50,22 @@ class NoteApp extends Component {
     });
   }
 
-  onSearchChangeEventHandler = (event) => {
-    this.setState({
-      search: event.target.value,
-    });
-  };
+  onSearchChangeEventHandler({ search }) {
+    this.setState({ search });
+  }
 
   render() {
-    const filteredNotes = this.state.notes.filter((note) =>
-      note.title.toLowerCase().includes(this.state.search.toLowerCase())
+    const filteredNotes = this.state.notes.filter(
+      (note) =>
+        note.title.toLowerCase().includes(this.state.search.toLowerCase()) ||
+        note.body.toLowerCase().includes(this.state.search.toLowerCase())
     );
 
     return (
       <>
         <div className="note-app__header">
           <h1>Notes</h1>
-          <NoteSearch
-            search={this.state.search}
-            onSearchChange={this.onSearchChangeEventHandler}
-          />
+          <NoteSearch onSearchChange={this.onSearchChangeEventHandler} />
         </div>
 
         <div className="note-app__body">
