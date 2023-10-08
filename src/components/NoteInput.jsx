@@ -57,7 +57,7 @@ class NoteInput extends Component {
           <input
             type="text"
             className="note-input__title"
-            placeholder="Tuliskan catatanmu disini..."
+            placeholder="Ini adalah judul..."
             onChange={this.onTitleChangeEventHandler}
             value={this.state.title}
             required
